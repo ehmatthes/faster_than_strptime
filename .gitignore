@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+
+bs_env/
+
+profile_output.txt
+
+data_file.txt
