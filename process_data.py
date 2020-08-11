@@ -13,8 +13,8 @@ with open(input_file) as f:
     lines = f.readlines()
 lines = [line.rstrip() for line in lines]
 
-print("Processing timestamps...")
 
+print("Processing timestamps...")
 
 # Using strptime:
 timestamps = [datetime.strptime(line, "%Y-%m-%d %H:%M") for line in lines]
