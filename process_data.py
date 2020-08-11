@@ -5,6 +5,7 @@ Timestamp format: "2016-02-09 15:45"
 
 import re
 from datetime import datetime
+from dateutil.parser import parse
 
 import numpy as np
 import pandas as pd
@@ -55,8 +56,10 @@ print("Processing timestamps...")
 # timestamps = [np.datetime64(line) for line in lines]
 
 # Using pandas.to_datetime():
-# timestamps = [pd.to_datetime(line) for line in lines]
-timestamps = pd.to_datetime(lines)
+# timestamps = pd.to_datetime(lines)
+
+# Using dateutil:
+timestamps = [parse(line) for line in lines]
 
 
 # Verify ts objects.
