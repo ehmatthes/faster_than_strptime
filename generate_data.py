@@ -1,3 +1,5 @@
+"""Generate the specified number of timestamp strings."""
+
 import sys
 
 from random import choice
@@ -8,7 +10,7 @@ try:
 except IndexError:
     num_data_points = 100_000
 
-# Parse strings like this: "2016-02-09 15:45"
+# Generate strings in this format: "2016-02-09 15:45"
 
 # Keep everything two digits except year.
 years = range(1900, 2020)
@@ -23,10 +25,10 @@ def get_ts_string():
     ts = f"{year}-{month}-{day} {hour}:{second}\n"
     return ts
 
-print("Building strings:")
+print("Building strings...")
 ts_strings = [get_ts_string() for _ in range(num_data_points)]
 
-print("Writing strings to file:")
+print("Writing strings to file...")
 with open('data_file.txt', 'w') as f:
     f.writelines(ts_strings)
 
