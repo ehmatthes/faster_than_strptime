@@ -9,6 +9,7 @@ from dateutil.parser import parse
 
 import numpy as np
 import pandas as pd
+import arrow
 
 
 def get_ts_simple_string_parser(line):
@@ -59,7 +60,10 @@ print("Processing timestamps...")
 # timestamps = pd.to_datetime(lines)
 
 # Using dateutil:
-timestamps = [parse(line) for line in lines]
+# timestamps = [parse(line) for line in lines]
+
+# USing arrow.get()
+timestamps = [arrow.get(line) for line in lines]
 
 
 # Verify ts objects.
