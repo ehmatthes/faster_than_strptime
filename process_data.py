@@ -6,6 +6,8 @@ Timestamp format: "2016-02-09 15:45"
 import re
 from datetime import datetime
 
+import numpy as np
+
 
 def get_ts_simple_string_parser(line):
     """Parse string through string slicing."""
@@ -46,9 +48,15 @@ print("Processing timestamps...")
 # timestamps = [get_ts_regex(line) for line in lines]
 
 # Using datetime.fromisoformat():
-timestamps = [datetime.fromisoformat(line) for line in lines]
+# timestamps = [datetime.fromisoformat(line) for line in lines]
+
+# Using numpy.datetime64():
+timestamps = [np.datetime64(line) for line in lines]
 
 
 # Verify ts objects.
 for line, ts in zip(lines[:5], timestamps[:5]):
-    print(line, ts.isoformat())
+    try:
+        print(line, ts.isoformat())
+    except AttributeError:
+        print(line, np.datetime_as_string(ts))
