@@ -43,7 +43,10 @@ print("Processing timestamps...")
 # timestamps = [get_ts_simple_string_parser(line) for line in lines]
 
 # Using regex:
-timestamps = [get_ts_regex(line) for line in lines]
+# timestamps = [get_ts_regex(line) for line in lines]
+
+# Using datetime.fromisoformat():
+timestamps = [datetime.fromisoformat(line) for line in lines]
 
 
 # Verify ts objects.
