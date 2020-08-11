@@ -7,6 +7,7 @@ import re
 from datetime import datetime
 
 import numpy as np
+import pandas as pd
 
 
 def get_ts_simple_string_parser(line):
@@ -51,7 +52,11 @@ print("Processing timestamps...")
 # timestamps = [datetime.fromisoformat(line) for line in lines]
 
 # Using numpy.datetime64():
-timestamps = [np.datetime64(line) for line in lines]
+# timestamps = [np.datetime64(line) for line in lines]
+
+# Using pandas.to_datetime():
+# timestamps = [pd.to_datetime(line) for line in lines]
+timestamps = pd.to_datetime(lines)
 
 
 # Verify ts objects.
