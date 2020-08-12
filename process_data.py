@@ -3,13 +3,27 @@
 Timestamp format: "2016-02-09 15:45"
 """
 
-import re
+import re, sys
 from datetime import datetime
 from dateutil.parser import parse
 
 import numpy as np
 import pandas as pd
 import arrow
+
+
+try:
+    parse_method = sys.argv[1]
+except IndexError:
+    parse_method = 'strptime'
+
+parse_methods = ['strptime', 'string-parsing', 'regex', 'fromisoformat',
+        'numpy', 'pandas', 'dateutil', 'arrow']
+
+if parse_method not in parse_methods:
+    print("The parsing method must be one of the following:")
+    print(parse_methods)
+    sys.exit()
 
 
 def get_ts_simple_string_parser(line):
@@ -37,33 +51,27 @@ print("Reading data from file...")
 with open(input_file) as f:
     lines = f.readlines()
 lines = [line.rstrip() for line in lines]
+print(f"  Found {len(lines)} timestamp strings.")
 
 
 print("Processing timestamps...")
 
-# Using strptime:
-# timestamps = [datetime.strptime(line, "%Y-%m-%d %H:%M") for line in lines]
-
-# Using manual string parsing:
-# timestamps = [get_ts_simple_string_parser(line) for line in lines]
-
-# Using regex:
-# timestamps = [get_ts_regex(line) for line in lines]
-
-# Using datetime.fromisoformat():
-# timestamps = [datetime.fromisoformat(line) for line in lines]
-
-# Using numpy.datetime64():
-# timestamps = [np.datetime64(line) for line in lines]
-
-# Using pandas.to_datetime():
-# timestamps = pd.to_datetime(lines)
-
-# Using dateutil:
-# timestamps = [parse(line) for line in lines]
-
-# USing arrow.get()
-timestamps = [arrow.get(line) for line in lines]
+if parse_method == 'strptime':
+    timestamps = [datetime.strptime(line, "%Y-%m-%d %H:%M") for line in lines]
+elif parse_method == 'string-parsing':
+    timestamps = [get_ts_simple_string_parser(line) for line in lines]
+elif parse_method == 'regex':
+    timestamps = [get_ts_regex(line) for line in lines]
+elif parse_method == 'fromisoformat':
+    timestamps = [datetime.fromisoformat(line) for line in lines]
+elif parse_method == 'numpy':
+    timestamps = [np.datetime64(line) for line in lines]
+elif parse_method == 'pandas':
+    timestamps = pd.to_datetime(lines)
+elif parse_method == 'dateutil':
+    timestamps = [parse(line) for line in lines]
+elif parse_method == 'arrow':
+    timestamps = [arrow.get(line) for line in lines]
 
 
 # Verify ts objects.
