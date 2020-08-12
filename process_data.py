@@ -6,6 +6,7 @@ Timestamp format: "2016-02-09 15:45"
 import re, sys
 from datetime import datetime
 from dateutil.parser import parse
+from time import perf_counter
 
 import numpy as np
 import pandas as pd
@@ -54,7 +55,8 @@ lines = [line.rstrip() for line in lines]
 print(f"  Found {len(lines)} timestamp strings.")
 
 
-print("Processing timestamps...")
+print("\nProcessing timestamps...")
+start = perf_counter()
 
 if parse_method == 'strptime':
     timestamps = [datetime.strptime(line, "%Y-%m-%d %H:%M") for line in lines]
@@ -73,8 +75,13 @@ elif parse_method == 'dateutil':
 elif parse_method == 'arrow':
     timestamps = [arrow.get(line) for line in lines]
 
+end = perf_counter()
+processing_time = round(end - start, 2)
+print(f"  Processed {len(timestamps)} in {processing_time} seconds.")
+
 
 # Verify ts objects.
+print("\nVerify timestamps:")
 for line, ts in zip(lines[:5], timestamps[:5]):
     try:
         print(line, ts.isoformat())
