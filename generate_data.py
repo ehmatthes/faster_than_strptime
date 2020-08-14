@@ -28,4 +28,4 @@ print("Writing strings to file...")
 with open('data_file.txt', 'w') as f:
     f.writelines(ts_strings)
 
-print(f"Wrote {len(ts_strings)} timestamp strings to file.")
+print(f"  Wrote {len(ts_strings)} timestamp strings to file.")

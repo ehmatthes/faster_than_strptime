@@ -58,7 +58,8 @@ if parse_method == 'strptime':
 elif parse_method == 'string-parsing':
     timestamps = [get_ts_string_parser(line) for line in lines]
 elif parse_method == 'regex':
-    ts_pattern = re.compile('([\d]{4})-([\d]{2})-([\d]{2}) ([\d]{2}):([\d]{2})')
+    ts_pattern = re.compile(
+            '([\d]{4})-([\d]{2})-([\d]{2}) ([\d]{2}):([\d]{2})')
     timestamps = [get_ts_regex(line, ts_pattern) for line in lines]
 elif parse_method == 'fromisoformat':
     timestamps = [datetime.fromisoformat(line) for line in lines]
@@ -77,7 +78,7 @@ print(f"  Processed {len(timestamps)} in {processing_time} seconds.")
 
 
 print("\nVerify conversion:")
-for line, ts in zip(lines[:5], timestamps[:5]):
+for line, ts in zip(lines[:3], timestamps[:3]):
     try:
         print(f"  {line} -> {ts.isoformat()}")
     except AttributeError:
