@@ -1,4 +1,4 @@
-"""Read timestamp strings from file, and create datetime objects from them.
+"""Read timestamp strings from a file, and convert them to datetime objects.
 
 Timestamp format: "2016-02-09 15:45"
 """
@@ -45,10 +45,8 @@ def get_ts_regex(line, ts_pattern):
     return ts
 
 
-input_file = 'data_file.txt'
-
 print("Reading data from file...")
-with open(input_file) as f:
+with open('data_file.txt') as f:
     lines = f.readlines()
 lines = [line.rstrip() for line in lines]
 print(f"  Found {len(lines)} timestamp strings.")
@@ -80,10 +78,9 @@ processing_time = round(end - start, 2)
 print(f"  Processed {len(timestamps)} in {processing_time} seconds.")
 
 
-# Verify ts objects.
-print("\nVerify timestamps:")
+print("\nVerify conversion:")
 for line, ts in zip(lines[:5], timestamps[:5]):
     try:
-        print(line, ts.isoformat())
+        print(f"  {line} -> {ts.isoformat()}")
     except AttributeError:
-        print(line, np.datetime_as_string(ts))
+        print(f"  {line} -> {np.datetime_as_string(ts)}")
