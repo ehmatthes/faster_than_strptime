@@ -35,9 +35,8 @@ def get_ts_simple_string_parser(line):
     ts = datetime(year=year, month=month, day=day, hour=hour, minute=minute)
     return ts
 
-def get_ts_regex(line):
+def get_ts_regex(line, ts_pattern):
     """Parse string using a regex."""
-    ts_pattern = re.compile('([\d]{4})-([\d]{2})-([\d]{2}) ([\d]{2}):([\d]{2})')
     m = ts_pattern.match(line)
     year, month, day = int(m.group(1)), int(m.group(2)), int(m.group(3))
     hour, minute = int(m.group(4)), int(m.group(5))
@@ -63,7 +62,8 @@ if parse_method == 'strptime':
 elif parse_method == 'string-parsing':
     timestamps = [get_ts_simple_string_parser(line) for line in lines]
 elif parse_method == 'regex':
-    timestamps = [get_ts_regex(line) for line in lines]
+    ts_pattern = re.compile('([\d]{4})-([\d]{2})-([\d]{2}) ([\d]{2}):([\d]{2})')
+    timestamps = [get_ts_regex(line, ts_pattern) for line in lines]
 elif parse_method == 'fromisoformat':
     timestamps = [datetime.fromisoformat(line) for line in lines]
 elif parse_method == 'numpy':
