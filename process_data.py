@@ -37,8 +37,11 @@ def get_ts_string_parser(line):
 def get_ts_regex(line, ts_pattern):
     """Parse string using a regex."""
     m = ts_pattern.match(line)
-    year, month, day = int(m.group(1)), int(m.group(2)), int(m.group(3))
-    hour, minute = int(m.group(4)), int(m.group(5))
+    # year, month, day = int(m.group(1)), int(m.group(2)), int(m.group(3))
+    # hour, minute = int(m.group(4)), int(m.group(5))
+    year, month, day, hour, minute = m.group(1, 2, 3, 4, 5)
+    year, month, day = int(year), int(month), int(day)
+    hour, minute = int(hour), int(minute)
 
     return datetime(year=year, month=month, day=day, hour=hour, minute=minute)
 
