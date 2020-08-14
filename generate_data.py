@@ -13,17 +13,13 @@ except IndexError:
 # Generate strings in this format: "2016-02-09 15:45"
 
 # Keep everything two digits except year.
-years = range(1900, 2020)
-months = range(10, 13)
-days = range(10, 29)
-hours = range(10, 24)
-seconds = range(10, 60)
+years, months, days = range(1900, 2020), range(10, 13), range(10, 29)
+hours, seconds = range(10, 24), range(10, 60)
 
 def get_ts_string():
     year, month, day = choice(years), choice(months), choice(days)
     hour, second = choice(hours), choice(seconds)
-    ts = f"{year}-{month}-{day} {hour}:{second}\n"
-    return ts
+    return f"{year}-{month}-{day} {hour}:{second}\n"
 
 print("Building strings...")
 ts_strings = [get_ts_string() for _ in range(num_data_points)]
