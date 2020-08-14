@@ -27,13 +27,12 @@ if parse_method not in parse_methods:
     sys.exit()
 
 
-def get_ts_simple_string_parser(line):
-    """Parse string through string slicing."""
+def get_ts_string_parser(line):
+    """Parse string manually."""
     year, month, day = int(line[:4]), int(line[5:7]), int(line[8:10])
     hour, minute = int(line[11:13]), int(line[14:])
 
-    ts = datetime(year=year, month=month, day=day, hour=hour, minute=minute)
-    return ts
+    return datetime(year=year, month=month, day=day, hour=hour, minute=minute)
 
 def get_ts_regex(line, ts_pattern):
     """Parse string using a regex."""
@@ -41,8 +40,7 @@ def get_ts_regex(line, ts_pattern):
     year, month, day = int(m.group(1)), int(m.group(2)), int(m.group(3))
     hour, minute = int(m.group(4)), int(m.group(5))
 
-    ts = datetime(year=year, month=month, day=day, hour=hour, minute=minute)
-    return ts
+    return datetime(year=year, month=month, day=day, hour=hour, minute=minute)
 
 
 print("Reading data from file...")
@@ -58,7 +56,7 @@ start = perf_counter()
 if parse_method == 'strptime':
     timestamps = [datetime.strptime(line, "%Y-%m-%d %H:%M") for line in lines]
 elif parse_method == 'string-parsing':
-    timestamps = [get_ts_simple_string_parser(line) for line in lines]
+    timestamps = [get_ts_string_parser(line) for line in lines]
 elif parse_method == 'regex':
     ts_pattern = re.compile('([\d]{4})-([\d]{2})-([\d]{2}) ([\d]{2}):([\d]{2})')
     timestamps = [get_ts_regex(line, ts_pattern) for line in lines]
