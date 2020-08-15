@@ -5,11 +5,13 @@ I was working on a project recently where the code was spending 2.5 seconds in c
 
 ## Running this code:
 
-- Create a virtual environment:
-    - `$ python3 -m venv venv`
-    - `$ source venv/bin/activate`
-    - `$ pip install -r requirements.txt`
+- Clone and create a virtual environment:
+    - `$ git clone https://github.com/ehmatthes/faster_than_strptime.git`
+    - `$ cd faster_than_strptime`
+    - `faster_than_strptime$ python3 -m venv venv`
+    - `faster_than_strptime$ source venv/bin/activate`
+    - `faster_than_strptime$ pip install -r requirements.txt`
 - Generate some data:
-    - `$ python generate_data.py 500_000`
+    - `faster_than_strptime$ python generate_data.py 500_000`
 - Process the data using one of the approaches:
-    - `$ python process_data.py fromisoformat`
+    - `faster_than_strptime$ python process_data.py fromisoformat`
